@@ -127,6 +127,12 @@ static bool handle(const std::string& path, mhttpd::Response& r) {
 
 static void handle(const mhttpd::Request& q, mhttpd::Response& r) {
     mhttpd::Log(q) << q.type << " " << q.path;
+
+    if (q.type != "GET") {
+        /* defaults to 501 / not implemented */
+        return;
+    }
+
     if (handle(basepath + mhttpd::sanitizepath(q.path), r)) {
         return;
     }
