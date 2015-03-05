@@ -454,11 +454,11 @@ int start(unsigned port, handler_t handler) {
         int socket_fd = accept(server_socket_fd, (struct sockaddr*) &client_addr, &client_addr_length);
         if (socket_fd < 0) {
             if (!server_running) {
-                return 0;
+                break;
             }
 
             std::perror("accept() failed");
-            return 1;
+            continue;
         }
 
         pid_t pid = fork();
